@@ -7,6 +7,7 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -43,21 +44,27 @@ export default function HomeScreen({ navigation }) {
     />
   );
 
-  const Item = ({ title, id, coverimg, ingredients, category }) => (
+  const Item = ({ title, id, coverimg, ingredients, category, content }) => (
     <View style={[styles.coverImageWrapper]}>
-      <ImageBackground
-        source={{ uri: coverimg }}
-        resizeMode="cover"
-        imageStyle={{ opacity: 0.5 }}
-        style={[styles.coverimg]}
+      <TouchableHighlight
+        activeOpacity={0.9}
+        underlayColor="#DDDDDD"
+        onPress={() => navigation.push("Recipe",{content,coverimg,ingredients,title,})}
       >
-        <Text style={[styles.textOverlay, styles.textTitle]}>
-          {title}, {id}
-        </Text>
-        <Text style={[styles.textOverlay, styles.textSubTitle]}>
-          {ingredients.length} Ingredients | {category}
-        </Text>
-      </ImageBackground>
+        <ImageBackground
+          source={{ uri: coverimg }}
+          resizeMode="cover"
+          imageStyle={{ opacity: 0.7 }}
+          style={[styles.coverimg]}
+        >
+          <Text style={[styles.textOverlay, styles.textTitle]}>
+            {title}, {id}
+          </Text>
+          <Text style={[styles.textOverlay, styles.textSubTitle]}>
+            {ingredients.length} Ingredients | {category}
+          </Text>
+        </ImageBackground>
+      </TouchableHighlight>
     </View>
   );
 
@@ -68,6 +75,7 @@ export default function HomeScreen({ navigation }) {
       coverimg={item.coverimg}
       ingredients={item.ingredients}
       category={item.category.name}
+      content={item.content}
     />
   );
 
@@ -95,12 +103,12 @@ const styles = StyleSheet.create({
   },
   coverImageWrapper: {
     width: window.width - 48,
-    marginTop:10,
+    marginTop: 10,
     marginLeft: 24,
     marginBottom: 10,
     borderRadius: 20,
     overflow: "hidden",
-    backgroundColor: "#000"
+    backgroundColor: "#000",
   },
   textSubTitle: {
     marginBottom: 20,
@@ -108,6 +116,6 @@ const styles = StyleSheet.create({
   textTitle: { fontWeight: "bold" },
   textOverlay: {
     color: "#fff",
-    marginLeft:20,
+    marginLeft: 20,
   },
 });
