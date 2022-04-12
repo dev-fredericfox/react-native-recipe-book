@@ -37,13 +37,6 @@ export default function HomeScreen({ navigation }) {
     getRecipes();
   }, []);
 
-  const button = (
-    <Button
-      title="Go to Details"
-      onPress={() => navigation.navigate("Recipe")}
-    />
-  );
-
   const Item = ({ title, id, coverimg, ingredients, category, content }) => (
     <View style={[styles.coverImageWrapper]}>
       <TouchableHighlight
