@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
 
-import { Ingredients } from "../constants/Types";
+import { Ingredient } from "../constants/Types";
+
+interface IngredientWithFactor extends Ingredient {
+  multiplicationFactor: string; 
+}
 
 export default function IngredientList({
   amount,
   emoji,
   ingredient,
   unit,
-}: Ingredients) {
+  multiplicationFactor
+}: IngredientWithFactor) {
   const [gathered, setGathered] = useState(false);
+  const [amountTimesFactor, setAmountTimesFactor] = useState(0)
+  
+  useEffect(() => {
+    const multiplicationFactorNum = parseFloat(multiplicationFactor)
+    const amountNum = parseFloat(amount)
+    let product
+    if (multiplicationFactorNum <= 0) {
+      product = 1*amountNum  
+    } else if (isNaN(multiplicationFactorNum)) {
+      product = 1*amountNum  
+    } else {
+    product = multiplicationFactorNum*amountNum
+    }
+    setAmountTimesFactor(product)
+  },[multiplicationFactor])
 
   return (
     <TouchableOpacity
@@ -35,7 +55,7 @@ export default function IngredientList({
       </View>
       <Text style={tw`font-bold grow px-2 py-3 w-1/3`}>{ingredient}</Text>
       <Text style={tw`text-gray-500`}>
-        {amount} {unit}
+        {amountTimesFactor} {unit}
       </Text>
     </TouchableOpacity>
   );
