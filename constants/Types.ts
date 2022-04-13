@@ -1,4 +1,4 @@
-export interface Ingredients {
+export interface Ingredient {
   amount: string;
   emoji: string;
   ingredient: string;
