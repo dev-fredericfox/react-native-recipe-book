@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import tw from "twrnc";
+import Markdown from 'react-native-markdown-display';
 
 import IngredientList from "../components/IngredientList";
 import Device from "../constants/Device";
@@ -68,7 +69,7 @@ export default function RecipeScreen({ route }) {
 
           </View>
           <Text style={tw`text-2xl font-bold`}>Recipe</Text>
-          <Text>{content}</Text>
+          <Markdown>{content}</Markdown>
         </>
       }
     />
