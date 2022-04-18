@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import {
   ActivityIndicator,
   Button,
@@ -10,12 +10,20 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+import { Recipe, RootStackParamList, Category } from "../constants/Types";
+
+//Local Interfaces for Props
+type ItemProp = {
+  item: Recipe;
+};
+
+type NavProp = NativeStackScreenProps<RootStackParamList, "Home">;
 
 const window = Dimensions.get("window");
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation }: NavProp) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -37,12 +45,21 @@ export default function HomeScreen({ navigation }) {
     getRecipes();
   }, []);
 
-  const Item = ({ title, id, coverimg, ingredients, category, content }) => (
+  const Item = ({
+    title,
+    id,
+    coverimg,
+    ingredients,
+    category,
+    content,
+  }: Recipe) => (
     <View style={[styles.coverImageWrapper]}>
       <TouchableHighlight
         activeOpacity={0.9}
         underlayColor="#DDDDDD"
-        onPress={() => navigation.push("Recipe",{content,coverimg,ingredients,title,})}
+        onPress={() =>
+          navigation.push("Recipe", { content, coverimg, ingredients, title })
+        }
       >
         <ImageBackground
           source={{ uri: coverimg }}
@@ -54,20 +71,22 @@ export default function HomeScreen({ navigation }) {
             {title}, {id}
           </Text>
           <Text style={[styles.textOverlay, styles.textSubTitle]}>
-            {ingredients.length} Ingredients | {category}
+            <Fragment>
+              {ingredients.length} Ingredients | {category}
+            </Fragment>
           </Text>
         </ImageBackground>
       </TouchableHighlight>
     </View>
   );
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: ItemProp) => (
     <Item
       title={item.title}
       id={item.id}
       coverimg={item.coverimg}
       ingredients={item.ingredients}
-      category={item.category.name}
+      category={item.category.name as unknown as Category}
       content={item.content}
     />
   );
@@ -79,7 +98,7 @@ export default function HomeScreen({ navigation }) {
       ) : (
         <FlatList
           data={data}
-          keyExtractor={({ id }, index) => id}
+          keyExtractor={({ title }, index) => title}
           renderItem={renderItem}
         />
       )}

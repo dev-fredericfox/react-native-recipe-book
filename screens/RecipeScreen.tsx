@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   FlatList,
   Image,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -12,18 +9,28 @@ import {
 } from "react-native";
 import tw from "twrnc";
 import Markdown from 'react-native-markdown-display';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 
 import IngredientList from "../components/IngredientList";
 import Device from "../constants/Device";
+import { Ingredient, RootStackParamList } from "../constants/Types";
 
-export default function RecipeScreen({ route }) {
+type NavProp = NativeStackScreenProps<RootStackParamList, 'Recipe'>;
+
+type ItemProp = {
+  item: Ingredient
+}
+
+
+export default function RecipeScreen({ route }:NavProp) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [number, setNumber] = useState('1');
 
   const { title, coverimg, ingredients, category, content } = route.params;
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }:ItemProp) => (
     <IngredientList
       ingredient={item.ingredient}
       emoji={item.emoji}
