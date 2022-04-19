@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { ActivityIndicator, Dimensions, View } from "react-native";
+import { ActivityIndicator, Text, Dimensions, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { Recipe, RootStackParamList, Category } from "../constants/Types";
@@ -15,6 +15,17 @@ type NavProp = NativeStackScreenProps<RootStackParamList, "Home">;
 export default function HomeScreen({ navigation }: NavProp) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [filter, setFilter] = useState<string | null>(null);
+  const [search, setSearch] = useState<string | null>(null);
+  const [filteredData, setFilteredData] = useState([]);
+
+  const filterFunction = (category: string | null) => {
+    let localFilteredData = data;
+    if (category !== "All" && category !== null) {
+      localFilteredData = data.filter((el: Recipe) => el.category.name === category);
+    }
+    setFilteredData(localFilteredData);
+  };
 
   const getRecipes = async () => {
     try {
@@ -32,14 +43,18 @@ export default function HomeScreen({ navigation }: NavProp) {
     getRecipes();
   }, []);
 
+  useEffect(() => {
+    filterFunction(filter);
+  }, [filter]);
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 0 }}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
         <Fragment>
-          <Tab data={data} navigation={navigation}></Tab>
-          <Tiles data={data} navigation={navigation} />
+          <Tab data={data} navigation={navigation} filterFunction={setFilter} />
+          <Tiles data={filteredData} navigation={navigation} />
         </Fragment>
       )}
     </View>
