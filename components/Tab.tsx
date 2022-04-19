@@ -6,7 +6,6 @@ import { Category, Ingredient, Recipe } from "../constants/Types";
 
 type Props = {
   data: Recipe[];
-  navigation: any;
   filterFunction: any;
 };
 
@@ -18,7 +17,7 @@ type CategoryDeduped = {
   category: string;
 };
 
-export default function Tiles({ data, navigation, filterFunction }: Props) {
+export default function Tiles({ data, filterFunction }: Props) {
   const [dedupedCategories, setDedupedCategories] = useState<string[]>([]);
   const [selected, setSelected] = useState("All");
 

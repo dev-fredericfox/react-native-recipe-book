@@ -5,6 +5,7 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Recipe, RootStackParamList, Category } from "../constants/Types";
 import Tiles from "../components/Tiles";
 import Tab from "../components/Tab";
+import Search from "../components/Search";
 
 //Local Interfaces for Props
 type ItemProp = {
@@ -19,10 +20,13 @@ export default function HomeScreen({ navigation }: NavProp) {
   const [search, setSearch] = useState<string | null>(null);
   const [filteredData, setFilteredData] = useState([]);
 
-  const filterFunction = (category: string | null) => {
+  const filterFunction = (category: string | null,search?: string | null) => {
     let localFilteredData = data;
     if (category !== "All" && category !== null) {
       localFilteredData = data.filter((el: Recipe) => el.category.name === category);
+    }
+    if (search) {
+      localFilteredData = data.filter((el: Recipe) => el.title.includes(search));
     }
     setFilteredData(localFilteredData);
   };
@@ -44,8 +48,8 @@ export default function HomeScreen({ navigation }: NavProp) {
   }, []);
 
   useEffect(() => {
-    filterFunction(filter);
-  }, [filter]);
+    filterFunction(filter,search);
+  }, [filter,search]);
 
   return (
     <View style={{ flex: 0 }}>
@@ -53,7 +57,8 @@ export default function HomeScreen({ navigation }: NavProp) {
         <ActivityIndicator />
       ) : (
         <Fragment>
-          <Tab data={data} navigation={navigation} filterFunction={setFilter} />
+          <Search data={data} searchFunction={setSearch} />
+          <Tab data={data} filterFunction={setFilter} />
           <Tiles data={filteredData} navigation={navigation} />
         </Fragment>
       )}
