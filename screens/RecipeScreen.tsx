@@ -23,12 +23,14 @@ type ItemProp = {
 }
 
 
-export default function RecipeScreen({ route }:NavProp) {
+export default function RecipeScreen({ route, navigation }:NavProp) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [number, setNumber] = useState('1');
 
   const { title, coverimg, ingredients, category, content } = route.params;
+
+  navigation.setOptions({ title })
 
   const renderItem = ({ item }:ItemProp) => (
     <IngredientList
@@ -44,7 +46,6 @@ export default function RecipeScreen({ route }:NavProp) {
     <FlatList
       ListHeaderComponent={
         <>
-          <Text style={tw`text-2xl font-bold text-center`}>{title}</Text>
           <Image
             source={{
               uri: coverimg,
