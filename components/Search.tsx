@@ -18,7 +18,6 @@ type CategoryDeduped = {
 };
 
 export default function Tiles({ data, searchFunction }: Props) {
-  const [dedupedCategories, setDedupedCategories] = useState<string[]>([]);
   const [search, setSearch] = useState("");
 
   const handleSearch = (keyword: string) => {
@@ -27,8 +26,8 @@ export default function Tiles({ data, searchFunction }: Props) {
   };
 
   return (
-    <View style={tw`mx-2 pb-3 bg-red-200`}>
-      <TextInput onChangeText={handleSearch} value={search} />
+    <View style={tw`mx-2 pb-3`}>
+      <TextInput style={tw`bg-white shadow-md rounded px-4 pt-3 pb-4 mb-2 mt-2`} onChangeText={handleSearch} value={search} />
     </View>
   );
 }
