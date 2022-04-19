@@ -48,5 +48,12 @@ export default function Tiles({ data, filterFunction }: Props) {
   );
 
   const renderItem = ({ item }: RenderItemProps) => <Item category={item} key={item} />;
-  return <FlatList data={dedupedCategories} renderItem={renderItem} horizontal={true} />;
+  return (
+    <FlatList
+      data={dedupedCategories}
+      renderItem={renderItem}
+      horizontal={true}
+      keyExtractor={(item) => item}
+    />
+  );
 }
