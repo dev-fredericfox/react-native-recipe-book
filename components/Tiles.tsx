@@ -11,14 +11,12 @@ import {
 import tw from "twrnc";
 
 import { Category, Ingredient, Recipe } from "../constants/Types";
-interface IngredientWithFactor extends Ingredient {
-  multiplicationFactor: string;
-}
 
 type Props = {
-  data: Recipe[],
-  navigation: any
-}
+  data: Recipe[];
+  navigation: any;
+  flatListHead: any;
+};
 
 type ItemProp = {
   item: Recipe;
@@ -26,7 +24,7 @@ type ItemProp = {
 
 const window = Dimensions.get("window");
 
-export default function Tiles({data, navigation}:Props) {
+export default function Tiles({ data, navigation, flatListHead }: Props) {
   const Item = ({ title, id, coverimg, ingredients, category, content }: Recipe) => (
     <View style={[styles.coverImageWrapper]}>
       <TouchableHighlight
@@ -41,7 +39,7 @@ export default function Tiles({data, navigation}:Props) {
           style={[styles.coverimg]}
         >
           <Text style={[styles.textOverlay, styles.textTitle]}>
-            {title}, {id}
+            {title}
           </Text>
           <Text style={[styles.textOverlay, styles.textSubTitle]}>
             <Fragment>
@@ -64,7 +62,13 @@ export default function Tiles({data, navigation}:Props) {
     />
   );
   return (
-    <FlatList data={data} keyExtractor={({ title }, index) => title} renderItem={renderItem} />
+    <FlatList
+      ListHeaderComponent={<>{flatListHead}</>}
+      style={tw`h-full`}
+      data={data}
+      keyExtractor={({ title }) => title}
+      renderItem={renderItem}
+    />
   );
 }
 
