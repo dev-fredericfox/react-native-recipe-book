@@ -55,7 +55,7 @@ export default function HomeScreen({ navigation }: NavProp) {
   }, [filter, search]);
 
   return (
-    <View style={{ flex: 0 }}>
+    <View style={tw`flex-initial bg-slate-100`}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
