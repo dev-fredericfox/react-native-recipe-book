@@ -51,7 +51,7 @@ export default function RecipeScreen({ route, navigation }:NavProp) {
               uri: coverimg,
             }}
             resizeMode="cover"
-            style={[styles.coverimg, tw`my-6`]}
+            style={[styles.coverimg, tw`my-6 bg-slate-100 rounded-lg`]}
           />
           <Text style={tw`text-2xl font-bold`}>
             Ingredients ({ingredients.length})
@@ -87,7 +87,6 @@ export default function RecipeScreen({ route, navigation }:NavProp) {
 const styles = StyleSheet.create({
   coverimg: {
     width: Device.window.width - 48,
-    borderRadius: 20,
     height: 200,
   },
 });
