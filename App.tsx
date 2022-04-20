@@ -15,7 +15,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen options={{headerTitle: 'Freds Cooking Corner'}}name="Home" component={HomeScreen} />
+        <Stack.Screen options={{headerTitle: 'Freds Cooking Corner'}} name="Home" component={HomeScreen} />
         <Stack.Screen name="Recipe" component={RecipeScreen} options={{headerBackTitleVisible: false}} />
       </Stack.Navigator>
     </NavigationContainer>
