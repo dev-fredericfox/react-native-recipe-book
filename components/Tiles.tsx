@@ -16,6 +16,7 @@ type Props = {
   data: Recipe[];
   navigation: any;
   flatListHead: any;
+  flatlistFooter: any
 };
 
 type ItemProp = {
@@ -24,7 +25,7 @@ type ItemProp = {
 
 const window = Dimensions.get("window");
 
-export default function Tiles({ data, navigation, flatListHead }: Props) {
+export default function Tiles({ data, navigation, flatListHead, flatlistFooter }: Props) {
   const Item = ({ title, id, coverimg, ingredients, category, content }: Recipe) => (
     <View style={[styles.coverImageWrapper]}>
       <TouchableHighlight
@@ -68,6 +69,11 @@ export default function Tiles({ data, navigation, flatListHead }: Props) {
       data={data}
       keyExtractor={({ title }) => title}
       renderItem={renderItem}
+      ListFooterComponent={
+        <>
+        {flatlistFooter}
+        </>
+      }
     />
   );
 }
