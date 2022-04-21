@@ -7,6 +7,7 @@ import { Recipe, RootStackParamList, Category } from "../constants/Types";
 import Tiles from "../components/Tiles";
 import Tab from "../components/Tab";
 import Search from "../components/Search";
+import NoRecipes from "../components/NoRecipes"
 
 //Local Interfaces for Props
 type ItemProp = {
@@ -64,6 +65,7 @@ export default function HomeScreen({ navigation }: NavProp) {
             <Fragment>
               <Search data={data} searchFunction={setSearch} />
               <Tab data={data} filterFunction={setFilter} />
+              {filteredData.length < 1 && <NoRecipes/>}
             </Fragment>
           }
           data={filteredData}
