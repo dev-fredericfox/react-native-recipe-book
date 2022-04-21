@@ -1,5 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { FlatList, TextInput, Pressable, Text, View } from "react-native";
+import SearchIcon from "./SearchIcon"
+
 import tw from "twrnc";
 
 import { Category, Ingredient, Recipe } from "../constants/Types";
@@ -26,8 +28,14 @@ export default function Tiles({ data, searchFunction }: Props) {
   };
 
   return (
-    <View style={tw`mx-2 pb-3`}>
-      <TextInput style={tw`bg-white shadow-md rounded px-4 pt-3 pb-4 mb-2 mt-2`} onChangeText={handleSearch} value={search} />
+    <View style={tw`mx-2 flex flex-row pb-3 mx-[24px] bg-white shadow-md rounded py-3 my-4 pl-4`}>
+      <SearchIcon/>
+      <TextInput
+        placeholder="Curry, Udon, Pizza..."
+        style={tw`ml-2 pr-10`}
+        onChangeText={handleSearch}
+        value={search}
+      />
     </View>
   );
 }
