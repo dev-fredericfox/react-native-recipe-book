@@ -54,6 +54,7 @@ export default function Tiles({ data, filterFunction }: Props) {
       renderItem={renderItem}
       horizontal={true}
       keyExtractor={(item) => item}
+      style={tw`mx-[12px]`}
     />
   );
 }
