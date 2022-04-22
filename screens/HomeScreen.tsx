@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { ActivityIndicator, Text, Dimensions, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import tw from "twrnc";
 
@@ -7,7 +7,7 @@ import { Recipe, RootStackParamList, Category } from "../constants/Types";
 import Tiles from "../components/Tiles";
 import Tab from "../components/Tab";
 import Search from "../components/Search";
-import NoRecipes from "../components/NoRecipes"
+import NoRecipes from "../components/NoRecipes";
 
 //Local Interfaces for Props
 type ItemProp = {
@@ -65,11 +65,24 @@ export default function HomeScreen({ navigation }: NavProp) {
             <Fragment>
               <Search data={data} searchFunction={setSearch} />
               <Tab data={data} filterFunction={setFilter} />
-              {filteredData.length < 1 && <NoRecipes/>}
+              {filteredData.length < 1 && <NoRecipes />}
             </Fragment>
           }
           data={filteredData}
           navigation={navigation}
+          flatlistFooter={
+            <>
+              <View style={tw`flex flex-row mx-auto mb-4`}>
+                <Text style={tw`mr-6`}onPress={() => navigation.push("Imprint", { name: "Imprint" })}>
+                  Imprint
+                </Text>
+
+                <Text onPress={() => navigation.push("Privacy", { name: "Privacy" })}>
+                  Privacy
+                </Text>
+              </View>
+            </>
+          }
         />
       )}
     </View>
