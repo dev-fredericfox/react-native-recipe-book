@@ -11,7 +11,6 @@ type NavProp = NativeStackScreenProps<RootStackParamList, "Imprint">;
 export default function Imprint({ navigation }: NavProp) {
   return (
     <View style={tw`flex-initial bg-slate-100`}>
-      <Text>Imprint</Text>
       <Text>Angaben gemäß § 5 TMG</Text>
       <Text>Frederic Fox</Text>
       <Text>Hintere Dorfstr. 6</Text>
