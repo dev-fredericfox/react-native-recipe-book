@@ -37,4 +37,6 @@ export type RootStackParamList = {
     category?: Category;
     content: string;
   };
+  Imprint: {name: string},
+  Privacy: {name: string}
 };
